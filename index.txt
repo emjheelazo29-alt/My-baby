@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday, My Luvvv 🎂💖</title>
+  <meta name="description" content="A birthday surprise made with love." />
+  <style>
+    :root{
+      --bg1:#0f1020;
+      --bg2:#1a1c3a;
+      --accent:#ff6fb5;
+      --accent-2:#ffd166;
+      --text:#f7f7fb;
+      --muted:#c7c9d9;
+      --card:#17182f;
+      --shadow:rgba(0,0,0,.35);
+    }
+
+    /* Reset + base */
+    *{box-sizing:border-box}
+    html,body{
+      height:100%;
+      margin:0;
+      font-family: ui-rounded, system-ui, -apple-system, "SF Pro Text",
+                   "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 10% 10%, #22244a 0%, transparent 60%),
+        radial-gradient(1000px 500px at 90% 20%, #1f2144 0%, transparent 55%),
+        linear-gradient(160deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
+    }
+
+    /* Floating hearts background */
+    .hearts{
+      position:fixed; inset:0; pointer-events:none; z-index:0;
+    }
+    .heart{
+      position:absolute; width:18px; height:18px;
+      opacity:.55; transform:rotate(45deg);
+      animation: floatUp 10s linear infinite;
+    }
+    .heart::before,.heart::after{
+      content:""; position:absolute; width:18px; height:18px;
+      background:var(--accent); border-radius:50%;
+    }
+    .heart::before{ left:-9px; }
+    .heart::after{ top:-9px; }
+    @keyframes floatUp{
+      0%   { transform:translateY(20vh) translateX(0) rotate(45deg); opacity:0; }
+      10%  { opacity:.55; }
+      100% { transform:translateY(-120vh) translateX(10vw) rotate(45deg); opacity:0; }
+    }
+
+    /* Layout */
+    .wrap{
+      min-height:100%;
+      display:grid;
+      place-items:center;
+      padding:24px;
+    }
+
+    .card{
+      width:100%;
+      max-width:720px;
+      background:linear-gradient(180deg, rgba(23,24,47,.7), rgba(23,24,47,.55));
+      backdrop-filter: blur(8px);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:20px;
+      box-shadow: 0 12px 30px var(--shadow);
+      overflow:hidden;
+      position:relative;
+      z-index:1;
+    }
+
+    .banner{
+      padding:16px 20px;
+      display:flex; align-items:center; gap:10px;
+      font-weight:600; letter-spacing:.2px;
+      color:var(--accent-2);
+      background:linear-gradient(90deg, rgba(255,209,102,.12), transparent);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .banner .dot{
+      width:10px; height:10px; border-radius:50%;
+      background:var(--accent-2);
+      box-shadow:0 0 12px var(--accent-2);
+      flex:0 0 auto;
+    }
+    .banner.small{ font-weight:500; color:var(--muted); }
+
+    .content{
+      padding:28px;
+      display:grid; gap:22px;
+    }
+
+    .photo{
+      width:100%; aspect-ratio: 16/10; border-radius:14px; overflow:hidden;
+      border:1px solid rgba(255,255,255,.08);
+      background:#101226;
+    }
+    .photo img{
+      width:100%; height:100%; object-fit:cover;
+      display:block; filter:saturate(1.05) contrast(1.02);
+      transition: transform .6s ease;
+    }
+    .photo:hover img{ transform: scale(1.02); }
+
+    .title{
+      font-size:clamp(24px, 4vw, 34px);
+      font-weight:800;
+      line-height:1.2;
+      letter-spacing:.4px;
+    }
+    .subtitle{
+      color:var(--muted);
+      font-size:clamp(14px, 2.5vw, 16px);
+    }
+
+    .actions{
+      display:flex; flex-wrap:wrap; gap:12px;
+      margin-top:6px;
+    }
+    .btn{
+      appearance:none; border:none; cursor:pointer;
+      padding:12px 16px; border-radius:12px;
+      font-weight:700; letter-spacing:.3px;
+      transition: transform .08s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .btn.primary{
+      background:linear-gradient(90deg, #ff6fb5, #ff8fb5);
+      color:#1a0920;
+      box-shadow: 0 8px 18px rgba(255,111,181,.35);
+    }
+    .btn.secondary{
+      background:rgba(255,255,255,.08);
+      color:var(--text);
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .btn:active{ transform: translateY(1px); }
+
+    .letter{
+      border:1px dashed rgba(255,255,255,.18);
+      border-radius:14px;
+      padding:18px;
+      line-height:1.7;
+      color:#f9f9fe;
+      background:linear-gradient(180deg, rgba(255,255,255,.04), transparent);
+      display:none; white-space:pre-wrap;
+    }
+    .letter.show{ display:block; }
+
+    /* Typewriter caret */
+    .typewriter{
+      border-right:2px solid var(--accent);
+      white-space:pre-wrap;
+      overflow:hidden;
+      animation: caretBlink .9s steps(1) infinite;
+    }
+    @keyframes caretBlink{
+      0%,49%{ border-color:transparent; }
+      50%,100%{ border-color: var(--accent); }
+    }
+
+    /* Footer */
+    .footer{
+      padding:14px 20px;
+      border-top:1px solid rgba(255,255,255,.08);
+      display:flex; justify-content:space-between; align-items:center;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width:480px){
+      .content{ padding:20px; }
+      .footer{ flex-direction:column; gap:8px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating hearts -->
+  <div class="hearts" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <main class="card" role="main" aria-label="Birthday message card">
+      <div class="banner" id="countdownBanner">
+        <span class="dot" aria-hidden="true"></span>
+        <span id="countdownText">Counting down to December 9…</span>
+      </div>
+
+      <div class="content">
+        <div class="title">Happy Birthday, my luvvvv ✨</div>
+        <div class="subtitle">I made something small but honest — just for you.</div>
+
+        <figure class="photo">
+          <!-- Replace src with your photo path -->
+          <img src="my-photo.jpg" alt="Our photo together" />
+        </figure>
+
+        <div class="actions">
+          <button class="btn primary" id="revealBtn">Tap to reveal my message</button>
+          <button class="btn secondary" id="musicBtn">Play our song (optional)</button>
+          <audio id="audio" preload="none">
+            <!-- Replace with your audio file (uncomment and set src) -->
+            <!-- <source src="audio/our-song.mp3" type="audio/mpeg" /> -->
+          </audio>
+        </div>
+
+        <div class="letter" id="letter" aria-live="polite">
+          <div id="typed" class="typewriter"></div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <span>Made with luvvv by emjhee 💜</span>
+        <span>Dec 9 • Always you</span>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // ---- Floating hearts generator ----
+    (function hearts(){
+      const container = document.querySelector('.hearts');
+      const colors = ['#ff6fb5','#ffd166','#9b5de5','#f15bb5','#f79d65'];
+      const makeHeart = () => {
+        const h = document.createElement('div');
+        h.className = 'heart';
+        const size = Math.random() * 14 + 10; // 10–24px
+        h.style.width = size+'px';
+        h.style.height = size+'px';
+        h.style.left = Math.random()*100+'vw';
+        h.style.bottom = '-10vh';
+        h.style.animationDuration = (Math.random()*6 + 8) + 's';
+        h.style.animationDelay = (Math.random()*4) + 's';
+        h.style.opacity = (Math.random()*0.5 + 0.35).toFixed(2);
+        const c = colors[Math.floor(Math.random()*colors.length)];
+        h.style.setProperty('--accent', c);
+        container.appendChild(h);
+        setTimeout(()=> h.remove(), 16000);
+      };
+      setInterval(makeHeart, 600);
+      for(let i=0;i<18;i++) makeHeart();
+    })();
+
+    // ---- Countdown to Dec 9 (local time) ----
+    (function countdown(){
+      const banner = document.getElementById('countdownBanner');
+      const text = document.getElementById('countdownText');
+      const now = new Date();
+      const year = now.getFullYear();
+      const target = new Date(year, 11, 9, 0, 0, 0); // December=11
+      const update = () => {
+        const n = new Date();
+        let t = target;
+        if(n > target){
+          // If past Dec 9 this year, switch message
+          banner.classList.add('small');
+          text.textContent = "Happy Birthday! Today is for you — and always will be.";
+          return;
+        }
+        const diff = t - n;
+        const d = Math.floor(diff / (1000*60*60*24));
+        const h = Math.floor(diff / (1000*60*60)) % 24;
+        const m = Math.floor(diff / (1000*60)) % 60;
+        const s = Math.floor(diff / 1000) % 60;
+        text.textContent = `Countdown: ${d}d ${h}h ${m}m ${s}s until Dec 9`;
+        requestAnimationFrame(update);
+      };
+      update();
+    })();
+
+    // ---- Typewriter reveal message ----
+    const revealBtn = document.getElementById('revealBtn');
+    const letterEl  = document.getElementById('letter');
+    const typedEl   = document.getElementById('typed');
+
+    const message = `
+To the person who turns ordinary days into my favorite memories:
+
+Happy birthday. On Dec 9 and every day after, I choose you.
+Thank you for your kindness, your laugh, and the way you make me braver.
+
+I can’t promise perfect paths, but I can promise honest steps  with you.
+Let's keep writing our story, slowly and truly, one moment at a time. Baby nako i loveee youuuuu sooo muchhh poooo you deserve everything.
+
+— your husby hihih
+`;
+
+    function typewriter(text, el, speed = 22){
+      el.textContent = '';
+      let i = 0;
+      const tick = () => {
+        if(i <= text.length){
+          el.textContent = text.slice(0, i++);
+          setTimeout(tick, speed);
+        }
+      };
+      tick();
+    }
+
+    revealBtn.addEventListener('click', () => {
+      letterEl.classList.add('show');
+      typewriter(message, typedEl, 18);
+      revealBtn.disabled = true;
+      revealBtn.textContent = '💖 Message revealed';
+      // subtle burst of hearts
+      for(let i=0;i<12;i++){
+        setTimeout(()=> {
+          const evt = new Event('spawnHeart');
+          document.dispatchEvent(evt);
+        }, i*90);
+      }
+    });
+
+    // ---- Optional music play (requires user gesture) ----
+    const audio = document.getElementById('audio');
+    const musicBtn = document.getElementById('musicBtn');
+    musicBtn.addEventListener('click', async () => {
+      try{
+        if(audio.src){
+          if(audio.paused){
+            await audio.play();
+            musicBtn.textContent = 'Pause our song';
+          }else{
+            audio.pause();
+            musicBtn.textContent = 'Play our song (optional)';
+          }
+        }else{
+          alert('Add your song file first: set the <source> src in the HTML.');
+        }
+      }catch(e){
+        alert('Tap again to allow audio — some browsers need a user gesture.');
+      }
+    });
+
+    // allow extra heart spawns
+    document.addEventListener('spawnHeart', () => {
+      const container = document.querySelector('.hearts');
+      const h = document.createElement('div');
+      h.className = 'heart';
+      h.style.left = Math.random()*100+'vw';
+      h.style.bottom = '-8vh';
+      h.style.animationDuration = (Math.random()*6 + 6) + 's';
+      container.appendChild(h);
+      setTimeout(()=> h.remove(), 14000);
+    });
+  </script>
+</body>
+</html>
